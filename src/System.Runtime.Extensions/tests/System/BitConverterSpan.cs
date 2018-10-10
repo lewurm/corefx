@@ -96,10 +96,6 @@ namespace System.Tests
 
         public override void ConvertFromFloat(float num, byte[] expected)
         {
-#if MONO // https://github.com/mono/mono/issues/10963
-            if (float.IsNaN(num))
-                return;
-#endif
             Span<byte> span = new Span<byte>(new byte[4]);
             Assert.True(BitConverter.TryWriteBytes(span, num));
             Assert.Equal(expected, span.ToArray());
@@ -107,10 +103,6 @@ namespace System.Tests
 
         public override void ConvertFromDouble(double num, byte[] expected)
         {
-#if MONO // https://github.com/mono/mono/issues/10963
-            if (double.IsNaN(num))
-                return;
-#endif
             Span<byte> span = new Span<byte>(new byte[8]);
             Assert.True(BitConverter.TryWriteBytes(span, num));
             Assert.Equal(expected, span.ToArray());
