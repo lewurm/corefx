@@ -116,6 +116,20 @@ namespace System.Tests
         }
 
         [Fact]
+        public static void SingleNaNToInt32Bits()
+        {
+            int bits = BitConverter.SingleToInt32Bits(float.NaN);
+            Assert.True ((bits & 0x7FFFFFFF) > 0x7FC00000);
+        }
+
+        [Fact]
+        public static void DoubleNaNToInt64Bits()
+        {
+            long bits = BitConverter.DoubleToInt64Bits(double.NaN);
+            Assert.True ((bits & 0x7FFFFFFFFFFFFFFF) > 0x7FF8000000000000);
+        }
+
+        [Fact]
         public static void RoundtripBoolean()
         {
             byte[] bytes = BitConverter.GetBytes(true);
